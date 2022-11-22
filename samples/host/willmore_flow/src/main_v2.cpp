@@ -6,7 +6,7 @@
 // #include "flo/host/willmore_flow.hpp"
 // #include "flo/host/surface.hpp"
 
-using namespace Eigen;
+// using namespace Eigen;
 
 // template <typename T>
 // struct ForwardEuler
