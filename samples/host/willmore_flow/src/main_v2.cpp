@@ -37,6 +37,7 @@ int main(int argc, char* argv[])
   // const flo::real tao = std::stof(argv[4]);
 
   flo::host::Surface surf;
+  std::cout << in_name << "\n";
   igl::read_triangle_mesh(in_name, surf.vertices, surf.faces);
 
   // ForwardEuler<flo::real> integrator(tao);
