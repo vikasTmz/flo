@@ -44,7 +44,7 @@ int main(int argc, char* argv[])
   Eigen::Matrix<real, Eigen::Dynamic, 3> vertices;
   Eigen::Matrix<int, Eigen::Dynamic, 3> faces;
 
-  igl::read_triangle_mesh(in_name, vertices, faces);
+  // igl::read_triangle_mesh(in_name, vertices, faces);
 
   // igl::read_triangle_mesh(in_name, surf.vertices, surf.faces);
 
