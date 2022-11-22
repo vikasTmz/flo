@@ -10,6 +10,7 @@
 #include "flo/host/willmore_flow.hpp"
 #include "flo/host/surface.hpp"
 
+#include <igl/readOBJ.h>
 
 using namespace Eigen;
 
@@ -39,7 +40,8 @@ int main(int argc, char* argv[])
 
   flo::host::Surface surf;
 
-  igl::read_triangle_mesh("obj",in_name, surf.vertices, surf.faces);
+  // igl::read_triangle_mesh("obj",in_name, surf.vertices, surf.faces);
+  success = igl::readOBJ(in_name, surf.vertices, surf.faces);
 
   // ForwardEuler<flo::real> integrator(tao);
 
