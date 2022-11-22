@@ -8,9 +8,7 @@
 #include <igl/read_triangle_mesh.h>
 #include "flo/host/flo_matrix_operation.hpp"
 #include "flo/host/willmore_flow.hpp"
-// #include "flo/host/surface.hpp"
-#include "flo/flo_internal.hpp"
-#include <Eigen/Dense>
+#include "flo/host/surface.hpp"
 
 
 using namespace Eigen;
@@ -39,14 +37,9 @@ int main(int argc, char* argv[])
   const int max_iter = std::stoi(argv[3]);
   // const flo::real tao = std::stof(argv[4]);
 
-  // flo::host::Surface surf;
+  flo::host::Surface surf;
 
-  Eigen::Matrix<int, Eigen::Dynamic, 3> vertices;
-  Eigen::Matrix<int, Eigen::Dynamic, 3> faces;
-
-  igl::read_triangle_mesh('obj',in_name, vertices, faces);
-
-  // igl::read_triangle_mesh(in_name, surf.vertices, surf.faces);
+  igl::read_triangle_mesh("obj",in_name, surf.vertices, surf.faces);
 
   // ForwardEuler<flo::real> integrator(tao);
 
