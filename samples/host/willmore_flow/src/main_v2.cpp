@@ -30,7 +30,7 @@ int main(int argc, char* argv[])
   const std::string in_name = argv[1];
   const std::string out_name = argv[2];
   const int max_iter = std::stoi(argv[3]);
-  const flo::real tao = std::stof(argv[4]);
+  // const flo::real tao = std::stof(argv[4]);
 
   // flo::host::Surface surf;
   // igl::read_triangle_mesh(in_name, surf.vertices, surf.faces);
