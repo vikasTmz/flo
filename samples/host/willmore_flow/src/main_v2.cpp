@@ -1,4 +1,8 @@
+#include <algorithm>
+#include <chrono>
+#include <fstream>
 #include <iostream>
+
 // #include <numeric>
 // #include <igl/write_triangle_mesh.h>
 // #include <igl/read_triangle_mesh.h>
@@ -27,9 +31,9 @@
 int main(int argc, char* argv[])
 {
   // Command line arguments
-  const std::string in_name = argv[1];
-  const std::string out_name = argv[2];
-  const int max_iter = std::stoi(argv[3]);
+  // const std::string in_name = argv[1];
+  // const std::string out_name = argv[2];
+  // const int max_iter = std::stoi(argv[3]);
   // const flo::real tao = std::stof(argv[4]);
 
   // flo::host::Surface surf;
@@ -45,5 +49,5 @@ int main(int argc, char* argv[])
 
   // igl::write_triangle_mesh(out_name, surf.vertices, surf.faces);
 
-  return 0;
+  return EXIT_SUCCESS;
 }
