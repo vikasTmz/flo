@@ -11,6 +11,7 @@
 #include "flo/host/surface.hpp"
 
 #include <igl/readOBJ.h>
+#include <igl/readOFF.h>
 
 using namespace Eigen;
 
@@ -40,8 +41,14 @@ int main(int argc, char* argv[])
 
   flo::host::Surface surf;
 
+  Eigen::MatrixXd V;
+  Eigen::MatrixXi F;
+
+  std::cout << "\n\n" << in_name << "\n\n";
+  igl::readOFF(in_name, V, F);
+
   // igl::read_triangle_mesh("obj",in_name, surf.vertices, surf.faces);
-  bool success = igl::readOBJ(in_name, surf.vertices, surf.faces);
+  // bool success = igl::readOBJ(in_name, surf.vertices, surf.faces);
 
   // ForwardEuler<flo::real> integrator(tao);
 
