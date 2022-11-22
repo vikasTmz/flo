@@ -5,7 +5,7 @@ TARGET = willmore_flow.out
 
 OBJECTS_DIR = obj
 
-SOURCES += $$files(src/*.cpp, true)
+SOURCES += $$files(src/main_v2.cpp, true)
 
 INCLUDEPATH += $$PWD/include 
 
