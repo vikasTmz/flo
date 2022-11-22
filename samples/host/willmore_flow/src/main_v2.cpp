@@ -33,7 +33,7 @@ int main(int argc, char* argv[])
   // Command line arguments
   const std::string in_name = argv[1];
   const std::string out_name = argv[2];
-  // const int max_iter = std::stoi(argv[3]);
+  const int max_iter = std::stoi(argv[3]);
   // const flo::real tao = std::stof(argv[4]);
 
   // flo::host::Surface surf;
