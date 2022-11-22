@@ -10,7 +10,8 @@ SOURCES += $$files(src/*.cpp, true)
 INCLUDEPATH += $$PWD/include 
 
 
-LIBS += -L../../../flo/lib -lflo 
+LIBS += -L../../../flo/lib
+# -lflo 
 QMAKE_RPATHDIR += ../../../flo/lib
 
 

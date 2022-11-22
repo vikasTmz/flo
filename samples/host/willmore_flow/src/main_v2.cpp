@@ -32,18 +32,18 @@ int main(int argc, char* argv[])
   const int max_iter = std::stoi(argv[3]);
   const flo::real tao = std::stof(argv[4]);
 
-  flo::host::Surface surf;
-  igl::read_triangle_mesh(in_name, surf.vertices, surf.faces);
+  // flo::host::Surface surf;
+  // igl::read_triangle_mesh(in_name, surf.vertices, surf.faces);
 
-  ForwardEuler<flo::real> integrator(tao);
+  // ForwardEuler<flo::real> integrator(tao);
 
-  for (int iter = 0; iter < max_iter; ++iter)
-  {
-    std::cout << "Iteration: " << iter << '\n';
-    flo::host::willmore_flow(surf.vertices, surf.faces, integrator);
-  }
+  // for (int iter = 0; iter < max_iter; ++iter)
+  // {
+  //   std::cout << "Iteration: " << iter << '\n';
+  //   flo::host::willmore_flow(surf.vertices, surf.faces, integrator);
+  // }
 
-  igl::write_triangle_mesh(out_name, surf.vertices, surf.faces);
+  // igl::write_triangle_mesh(out_name, surf.vertices, surf.faces);
 
   return 0;
 }
