@@ -41,7 +41,7 @@ int main(int argc, char* argv[])
   flo::host::Surface surf;
 
   // igl::read_triangle_mesh("obj",in_name, surf.vertices, surf.faces);
-  success = igl::readOBJ(in_name, surf.vertices, surf.faces);
+  bool success = igl::readOBJ(in_name, surf.vertices, surf.faces);
 
   // ForwardEuler<flo::real> integrator(tao);
 
