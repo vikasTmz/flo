@@ -50,6 +50,8 @@ int main(int argc, char* argv[])
 
   Eigen::MatrixXd V;
   Eigen::MatrixXi F;
+  V << 0.1, 0.2, 0.5,0.6;
+  F << 0,1;
 
   std::cout << "\n\n" << in_name << "\n\n";
 
@@ -67,6 +69,8 @@ int main(int argc, char* argv[])
   for (int iter = 0; iter < max_iter; ++iter)
   {
     std::cout << "Iteration: " << iter << '\n';
+    flo::host::willmore_flow(V, F, integrator);
+
   //   flo::host::willmore_flow(surf.vertices, surf.faces, integrator);
   }
 
