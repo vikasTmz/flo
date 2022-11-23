@@ -1,3 +1,5 @@
+#define CGAL_EIGEN3_ENABLED
+
 #include <algorithm>
 #include <chrono>
 #include <fstream>
