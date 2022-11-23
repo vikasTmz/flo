@@ -50,7 +50,7 @@ int main(int argc, char* argv[])
 
   std::cout << "\n\n" << in_name << "\n\n";
 
-  std::vector<Kernel::Point_3> points_ref;
+  std::vector<CGAL::Simple_cartesian<double>::Point_3> points_ref;
   std::vector<std::vector<std::size_t>> faces_ref;
 
   std::cout << CGAL::IO::read_OBJ(in_name, points_ref, faces_ref) << "\n";
