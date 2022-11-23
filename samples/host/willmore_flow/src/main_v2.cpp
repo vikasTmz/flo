@@ -16,6 +16,7 @@
 #include <CGAL/IO/OBJ.h>
 #include <CGAL/IO/OBJ/File_writer_wavefront.h>
 #include <CGAL/Polyhedron_3.h>
+#include <CGAL/Simple_cartesian.h>
 
 using namespace Eigen;
 
