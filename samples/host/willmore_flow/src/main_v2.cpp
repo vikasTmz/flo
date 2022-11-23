@@ -6,12 +6,16 @@
 #include <numeric>
 #include <igl/write_triangle_mesh.h>
 #include <igl/read_triangle_mesh.h>
+#include <igl/readOBJ.h>
+#include <igl/readOFF.h>
+
 #include "flo/host/flo_matrix_operation.hpp"
 #include "flo/host/willmore_flow.hpp"
 #include "flo/host/surface.hpp"
 
-#include <igl/readOBJ.h>
-#include <igl/readOFF.h>
+#include <CGAL/IO/OBJ.h>
+#include <CGAL/IO/OBJ/File_writer_wavefront.h>
+#include <CGAL/Polyhedron_3.h>
 
 using namespace Eigen;
 
@@ -45,7 +49,13 @@ int main(int argc, char* argv[])
   Eigen::MatrixXi F;
 
   std::cout << "\n\n" << in_name << "\n\n";
-  igl::readOFF(in_name, V, F);
+
+  std::vector<Kernel::Point_3> points_ref;
+  std::vector<std::vector<std::size_t>> faces_ref;
+
+  std::cout << CGAL::IO::read_OBJ(in_name, points_ref, faces_ref) << "\n";
+
+  // igl::readOFF(in_name, V, F);
 
   // igl::read_triangle_mesh("obj",in_name, surf.vertices, surf.faces);
   // bool success = igl::readOBJ(in_name, surf.vertices, surf.faces);
