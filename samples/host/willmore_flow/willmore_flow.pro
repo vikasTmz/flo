@@ -14,7 +14,6 @@ INCLUDEPATH +=   /usr/include/
 LIBS        += -L/usr/include/
 LIBS        += -L/usr/local/include/
 LIBS        += -L/usr/local/include/CGAL
-LIBS        += -lCGAL
 LIBS        += -lgmp
 
 LIBS += -L../../../flo/lib
