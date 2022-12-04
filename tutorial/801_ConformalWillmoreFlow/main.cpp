@@ -32,9 +32,9 @@ struct ForwardEuler
   }
 };
 
-Matrix<double, 4, 1>
-hammilton_product(const Matrix<double, 4, 1>& i_rhs,
-                  const Matrix<double, 4, 1>& i_lhs)
+Matrix<float, 4, 1>
+hammilton_product(const Matrix<float, 4, 1>& i_rhs,
+                  const Matrix<float, 4, 1>& i_lhs)
 {
   using namespace Eigen;
   const auto a1 = i_rhs.w();
@@ -46,25 +46,25 @@ hammilton_product(const Matrix<double, 4, 1>& i_rhs,
   const auto c2 = i_lhs.y();
   const auto d2 = i_lhs.z();
   // W is last in a vector
-  return Matrix<double, 4, 1>(a1 * b2 + b1 * a2 + c1 * d2 - d1 * c2,
+  return Matrix<float, 4, 1>(a1 * b2 + b1 * a2 + c1 * d2 - d1 * c2,
                             a1 * c2 - b1 * d2 + c1 * a2 + d1 * b2,
                             a1 * d2 + b1 * c2 - c1 * b2 + d1 * a2,
                             a1 * a2 - b1 * b2 - c1 * c2 - d1 * d2);
 }
 
-Matrix<double, 4, 1>
-hammilton_product(const Matrix<double, 3, 1>& i_rhs,
-                  const Matrix<double, 3, 1>& i_lhs)
+Matrix<float, 4, 1>
+hammilton_product(const Matrix<float, 3, 1>& i_rhs,
+                  const Matrix<float, 3, 1>& i_lhs)
 {
   using namespace Eigen;
   return hammilton_product(
-    Matrix<double, 4, 1>{i_rhs.x(), i_rhs.y(), i_rhs.z(), 0.},
-    Matrix<double, 4, 1>{i_lhs.x(), i_lhs.y(), i_lhs.z(), 0.});
+    Matrix<float, 4, 1>{i_rhs.x(), i_rhs.y(), i_rhs.z(), 0.},
+    Matrix<float, 4, 1>{i_lhs.x(), i_lhs.y(), i_lhs.z(), 0.});
 }
 
 template <int R, int C>
-void insert_block_sparse(const Matrix<double, R, C>& i_block,
-                                 SparseMatrix<double>& i_mat,
+void insert_block_sparse(const Matrix<float, R, C>& i_block,
+                                 SparseMatrix<float>& i_mat,
                                  int i_x,
                                  int i_y)
 {
@@ -79,8 +79,8 @@ void insert_block_sparse(const Matrix<double, R, C>& i_block,
 }
 
 
-Matrix<double, 4, 4>
-quat_to_block(const Matrix<double, 4, 1>& i_quat)
+Matrix<float, 4, 4>
+quat_to_block(const Matrix<float, 4, 1>& i_quat)
 {
   using namespace Eigen;
   const auto a = i_quat.w();
@@ -88,22 +88,22 @@ quat_to_block(const Matrix<double, 4, 1>& i_quat)
   const auto c = i_quat.y();
   const auto d = i_quat.z();
 
-  Matrix<double, 4, 4> block;
+  Matrix<float, 4, 4> block;
   block << a, -b, -c, -d, b, a, -d, c, c, d, a, -b, d, -c, b, a;
   return block;
 }
 
-Matrix<double, 4, 1>
-conjugate(const Matrix<double, 4, 1>& i_quat)
+Matrix<float, 4, 1>
+conjugate(const Matrix<float, 4, 1>& i_quat)
 {
-  return Matrix<double, 4, 1>(-i_quat.x(), -i_quat.y(), -i_quat.z(), i_quat.w());
+  return Matrix<float, 4, 1>(-i_quat.x(), -i_quat.y(), -i_quat.z(), i_quat.w());
 }
 
 
-inline SparseMatrix<double>
-to_real_quaternion_matrix(const SparseMatrix<double>& i_real_matrix)
+inline SparseMatrix<float>
+to_real_quaternion_matrix(const SparseMatrix<float>& i_real_matrix)
 {
-  SparseMatrix<double> quat_matrix(i_real_matrix.rows() * 4,
+  SparseMatrix<float> quat_matrix(i_real_matrix.rows() * 4,
                                         i_real_matrix.cols() * 4);
 
   Matrix<int, Dynamic, 1> dim(i_real_matrix.cols() * 4, 1);
@@ -117,7 +117,7 @@ to_real_quaternion_matrix(const SparseMatrix<double>& i_real_matrix)
   }
   quat_matrix.reserve(dim);
 
-  using iter_t = SparseMatrix<double>::InnerIterator;
+  using iter_t = SparseMatrix<float>::InnerIterator;
   for (int i = 0; i < i_real_matrix.outerSize(); ++i)
   {
     for (iter_t it(i_real_matrix, i); it; ++it)
@@ -125,7 +125,7 @@ to_real_quaternion_matrix(const SparseMatrix<double>& i_real_matrix)
       auto r = it.row();
       auto c = it.col();
 
-      Matrix<double, 4, 1> real_quat(0.f, 0.f, 0.f, it.value());
+      Matrix<float, 4, 1> real_quat(0.f, 0.f, 0.f, it.value());
       auto block = quat_to_block(real_quat);
       insert_block_sparse(block, quat_matrix, r, c);
     }
@@ -178,12 +178,12 @@ void vertex_vertex_adjacency(const Matrix<int, Eigen::Dynamic, 3>& F,
 //           typename DerivedVV,
 //           typename DerivedA,
 //           typename DerivedP>
-void intrinsic_dirac(const Matrix<double, Eigen::Dynamic, 3>& V,
+void intrinsic_dirac(const Matrix<float, Eigen::Dynamic, 3>& V,
                              const Matrix<int, Eigen::Dynamic, 3>& F,
                              const Matrix<int, Dynamic, 1>& VV,
-                             const Matrix<double, Dynamic, 1>  & A,
-                             const Matrix<double, Dynamic, 1>& P,
-                             SparseMatrix<double>& D)
+                             const Matrix<float, Dynamic, 1>  & A,
+                             const Matrix<float, Dynamic, 1>& P,
+                             SparseMatrix<float>& D)
 {
   // Find the max valence
   const int nnz = V.rows() * VV.maxCoeff() * 16;
@@ -203,7 +203,7 @@ void intrinsic_dirac(const Matrix<double, Eigen::Dynamic, 3>& V,
     auto c = A(k) / 9.f;
 
     // Compute edge vectors as imaginary quaternions
-    std::array<Matrix<double, 4, 1>, 3> edges;
+    std::array<Matrix<float, 4, 1>, 3> edges;
     // opposing edge per vertex i.e. vertex one opposes edge 1->2
     edges[0].head<3>() = V.row(f(2)) - V.row(f(1));
     edges[1].head<3>() = V.row(f(0)) - V.row(f(2));
@@ -218,13 +218,13 @@ void intrinsic_dirac(const Matrix<double, Eigen::Dynamic, 3>& V,
       for (int j = 0; j < 3; j++)
       {
         // W comes first in a quaternion but last in a vector
-        Matrix<double, 4, 1> cur_quat(D.coeff(f[i] * 4 + 1, f[j] * 4),
+        Matrix<float, 4, 1> cur_quat(D.coeff(f[i] * 4 + 1, f[j] * 4),
                                     D.coeff(f[i] * 4 + 2, f[j] * 4),
                                     D.coeff(f[i] * 4 + 3, f[j] * 4),
                                     D.coeff(f[i] * 4 + 0, f[j] * 4));
 
         // Calculate the matrix component
-        Matrix<double, 4, 1> q = a * hammilton_product(edges[i], edges[j]) +
+        Matrix<float, 4, 1> q = a * hammilton_product(edges[i], edges[j]) +
                                b * (P(f(i)) * edges[j] - P(f(j)) * edges[i]);
         q.w() += P(f(i)) * P(f(j)) * c;
         // Sum it with any existing value
@@ -237,8 +237,8 @@ void intrinsic_dirac(const Matrix<double, Eigen::Dynamic, 3>& V,
   }
 }
 
-void similarity_xform(const SparseMatrix<double>& D,
-                              Matrix<double, Dynamic, 4>& X,
+void similarity_xform(const SparseMatrix<float>& D,
+                              Matrix<float, Dynamic, 4>& X,
                               int back_substitutions = 0)
 {
   // Calculate the length of our matrix,
@@ -246,11 +246,11 @@ void similarity_xform(const SparseMatrix<double>& D,
   const int vlen = D.cols();
   const int qlen = vlen / 4;
 
-  SimplicialLLT<SparseMatrix<double>, Lower> cg;
+  SimplicialLLT<SparseMatrix<float>, Lower> cg;
   cg.compute(D);
 
   // Init every real part to 1, all imaginary parts to zero
-  Matrix<double, Dynamic, 1> lambda(vlen, 1);
+  Matrix<float, Dynamic, 1> lambda(vlen, 1);
   for (int i = 0; i < qlen; ++i)
   {
     lambda(i * 4 + 0) = 1.f;
@@ -280,11 +280,11 @@ void similarity_xform(const SparseMatrix<double>& D,
   }
 }
 
-void divergent_edges(const Matrix<double, Eigen::Dynamic, 3>& V,
+void divergent_edges(const Matrix<float, Eigen::Dynamic, 3>& V,
                              const Matrix<int, Eigen::Dynamic, 3>& F,
-                             const Matrix<double, Dynamic, 4> & X,
-                             const SparseMatrix<double>& L,
-                             Matrix<double, Dynamic, 4>& E)
+                             const Matrix<float, Dynamic, 4> & X,
+                             const SparseMatrix<float>& L,
+                             Matrix<float, Dynamic, 4>& E)
 {
   using namespace Eigen;
   E.resize(V.rows(), 4);
@@ -304,13 +304,13 @@ void divergent_edges(const Matrix<double, Eigen::Dynamic, 3>& V,
       const auto& l1 = X.row(a);
       const auto& l2 = X.row(b);
 
-      Matrix<double, 3, 1> edge = V.row(a) - V.row(b);
-      Matrix<double, 4, 1> e(edge[0], edge[1], edge[2], 0.f);
+      Matrix<float, 3, 1> edge = V.row(a) - V.row(b);
+      Matrix<float, 4, 1> e(edge[0], edge[1], edge[2], 0.f);
 
       constexpr auto third = 1.f / 3.f;
       constexpr auto sixth = 1.f / 6.f;
 
-      Matrix<double, 4, 1> et =
+      Matrix<float, 4, 1> et =
         hammilton_product(hammilton_product(third * conjugate(l1), e), l1) +
         hammilton_product(hammilton_product(sixth * conjugate(l1), e), l2) +
         hammilton_product(hammilton_product(sixth * conjugate(l2), e), l1) +
@@ -323,33 +323,33 @@ void divergent_edges(const Matrix<double, Eigen::Dynamic, 3>& V,
   }
 }
 
-void spin_positions(const SparseMatrix<double>& QL,
-                            const Matrix<double, Dynamic, 4>& QE,
-                            Matrix<double, Dynamic, Dynamic>& V)
+void spin_positions(const SparseMatrix<float>& QL,
+                            const Matrix<float, Dynamic, 4>& QE,
+                            Matrix<float, Dynamic, Dynamic>& V)
 {
   // Solve for our new positions
-  // If double precision, use Cholmod solver
+  // If float precision, use Cholmod solver
   // Cholmod not supported for single precision
-  SimplicialLLT<SparseMatrix<double>, Lower> cg;
+  SimplicialLLT<SparseMatrix<float>, Lower> cg;
   cg.compute(QL);
 
-  Matrix<double, Dynamic, 4, RowMajor> QEr = QE;
+  Matrix<float, Dynamic, 4, RowMajor> QEr = QE;
 
   for (int i = 0; i < QEr.size() / 4; ++i)
   {
-    const double z = QEr(i * 4 + 3);
+    const float z = QEr(i * 4 + 3);
     QEr(i * 4 + 3) = QEr(i * 4 + 2);
     QEr(i * 4 + 2) = QEr(i * 4 + 1);
     QEr(i * 4 + 1) = QEr(i * 4 + 0);
     QEr(i * 4 + 0) = z;
   }
-  Map<Matrix<double, Dynamic, 1>> b(QEr.data(), QEr.size());
-  Matrix<double, Dynamic, 1> flat = cg.solve(b);
+  Map<Matrix<float, Dynamic, 1>> b(QEr.data(), QEr.size());
+  Matrix<float, Dynamic, 1> flat = cg.solve(b);
 
   V.resize((flat.size() / 4), 4);
   for (int i = 0; i < flat.size() / 4; ++i)
   {
-    const double z = flat(i * 4 + 0);
+    const float z = flat(i * 4 + 0);
     V.row(i)(0) = flat(i * 4 + 1);
     V.row(i)(1) = flat(i * 4 + 2);
     V.row(i)(2) = flat(i * 4 + 3);
@@ -357,28 +357,28 @@ void spin_positions(const SparseMatrix<double>& QL,
   }
 
   // Remove the mean to center the positions
-  const Matrix<double, 1, 4, RowMajor> average =
+  const Matrix<float, 1, 4, RowMajor> average =
     V.colwise().sum().array() / V.rows();
   V.rowwise() -= average;
   // Normalize positions
-  const double max_dist = std::sqrt(V.rowwise().squaredNorm().maxCoeff());
+  const float max_dist = std::sqrt(V.rowwise().squaredNorm().maxCoeff());
   V *= (1.f / max_dist);
 }
 
 
 
 // template <typename DerivedV, typename DerivedF, typename DerivedP>
-void spin_xform(Matrix<double, Eigen::Dynamic, 3>& V,
+void spin_xform(Matrix<float, Eigen::Dynamic, 3>& V,
                         const Matrix<int, Eigen::Dynamic, 3>& F,
-                        const Matrix<double, Dynamic, 1>& P,
-                        const SparseMatrix<double>& L)
+                        const Matrix<float, Dynamic, 1>& P,
+                        const SparseMatrix<float>& L)
 {
   using namespace Eigen;
   // Calculate the real matrix from our quaternion edges
   auto QL = to_real_quaternion_matrix(L);
 
   // Calculate all face areas
-  Matrix<double, Dynamic, 1> A;
+  Matrix<float, Dynamic, 1> A;
   igl::doublearea(V, F, A);
   A *= 0.5f;
 
@@ -387,19 +387,19 @@ void spin_xform(Matrix<double, Eigen::Dynamic, 3>& V,
   vertex_vertex_adjacency(F, VAK, VA, VV, VCV);
 
   // Calculate the intrinsic dirac operator matrix
-  SparseMatrix<double> D;
+  SparseMatrix<float> D;
   intrinsic_dirac(V, F, VV, A, P, D);
 
   // Calculate the scaling and rotation for our spin transformation
-  Matrix<double, Dynamic, 4> X;
+  Matrix<float, Dynamic, 4> X;
   similarity_xform(D, X);
 
   // Calculate our transformed edges
-  Matrix<double, Dynamic, 4> E;
+  Matrix<float, Dynamic, 4> E;
   divergent_edges(V, F, X, L, E);
 
   // Solve the final vertex positions
-  Matrix<double, Dynamic, Dynamic> NV;
+  Matrix<float, Dynamic, Dynamic> NV;
   spin_positions(QL, E, NV);
   NV.conservativeResize(NoChange, 3);
   V = NV;
@@ -413,16 +413,16 @@ int main(int argc, char* argv[])
   const std::string in_name = argv[1];
   const std::string out_name = argv[2];
   const int max_iter = std::stoi(argv[3]);
-  const double tao = std::stof(argv[4]);
+  const float tao = std::stof(argv[4]);
 
   // flo::host::Surface surf;
   // igl::read_triangle_mesh(in_name, surf.vertices, surf.faces);
 
-  Matrix<double, Eigen::Dynamic, 3> V;
+  Matrix<float, Eigen::Dynamic, 3> V;
   Matrix<int, Eigen::Dynamic, 3> F;
   igl::read_triangle_mesh(in_name,V,F);
 
-  ForwardEuler<double> integrator(tao);
+  ForwardEuler<float> integrator(tao);
 
   for (int iter = 0; iter < max_iter; ++iter)
   {
@@ -435,22 +435,22 @@ int main(int argc, char* argv[])
 
     // Calculate smooth vertex normals
     // MatrixXd N;
-    Matrix<double, Eigen::Dynamic, 3> N;
+    Matrix<float, Eigen::Dynamic, 3> N;
     igl::per_vertex_normals(V, F, igl::PER_VERTEX_NORMALS_WEIGHTING_TYPE_ANGLE, N);
 
     std::cout << "Calculate the cotangent laplacian for our mesh" << std::endl;
     // Calculate the cotangent laplacian for our mesh
-    SparseMatrix<double> L;
+    SparseMatrix<float> L;
     igl::cotmatrix(V, F, L);
     L = (-L.eval());
 
     std::cout << "Calculate the vertex masses for our mesh" << std::endl;
     // Calculate the vertex masses for our mesh
-    Matrix<double, Dynamic, 1> M;
+    Matrix<float, Dynamic, 1> M;
     M.resize(V.rows());
     M.setConstant(0.0f);
     // Calculate all face areas
-    Matrix<double, Dynamic, 1> A;
+    Matrix<float, Dynamic, 1> A;
     igl::doublearea(V, F, A);
 
     // For every face
@@ -467,23 +467,23 @@ int main(int argc, char* argv[])
 
     std::cout << "Build our constraints {1, N.x, N.y, N.z}" << std::endl;
     // Build our constraints {1, N.x, N.y, N.z}
-    Matrix<double, Dynamic, 4> constraints(N.rows(), 4);
-    constraints.col(0) = Matrix<double, Dynamic, 1>::Ones(N.rows());
+    Matrix<float, Dynamic, 4> constraints(N.rows(), 4);
+    constraints.col(0) = Matrix<float, Dynamic, 1>::Ones(N.rows());
     constraints.col(1) = N.col(0);
     constraints.col(2) = N.col(1);
     constraints.col(3) = N.col(2);
 
     // Declare an immersed inner-product using the mass matrix
-    const auto inner_product = [&M](const Matrix<double, Dynamic, 1>& x,
-                         const Matrix<double, Dynamic, 1>& y) -> double {
+    const auto inner_product = [&M](const Matrix<float, Dynamic, 1>& x,
+                         const Matrix<float, Dynamic, 1>& y) -> float {
       auto single_mat = (x.transpose() * M.asDiagonal() * y).eval();
       return single_mat(0, 0);
     };
 
     // Build a constraint basis using the Gram–Schmidt process
-    Matrix<double, Dynamic, Dynamic> U;
+    Matrix<float, Dynamic, Dynamic> U;
     // flo::host::orthonormalize(constraints, inner_product, U);
-    auto normalize = [&](const Matrix<double, Dynamic, 1>& x) {
+    auto normalize = [&](const Matrix<float, Dynamic, 1>& x) {
       return x.array() / std::sqrt(inner_product(x, x));
     };
     // Dimensionality of vectors
@@ -507,11 +507,11 @@ int main(int argc, char* argv[])
     }
 
     // Calculate the signed mean curvature based on our vertex normals
-    Matrix<double, Dynamic, 1> H;
+    Matrix<float, Dynamic, 1> H;
     // signed_mean_curvature(V, L, M, N, H);
-    Matrix<double, Dynamic, 3> HN;
+    Matrix<float, Dynamic, 3> HN;
     // mean_curvature_normal(V, L, M, HN);
-    Matrix<double, Dynamic, 1> Minv = 1.f / (12.f * M.array());
+    Matrix<float, Dynamic, 1> Minv = 1.f / (12.f * M.array());
     HN = (-Minv).asDiagonal() * (2.0f * L * V);
     H.resize(HN.rows());
 
@@ -526,7 +526,7 @@ int main(int argc, char* argv[])
     // Apply our flow direction to the mean curvature half density
     H *= -1.f;
 
-    Matrix<double, Dynamic, 1> HP = H;
+    Matrix<float, Dynamic, 1> HP = H;
     //// Build our constraints {1, N.x, N.y, N.z} curvature
     // project_basis(HP, U, ip);
     for (int i = 0; i < U.cols(); ++i)
