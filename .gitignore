@@ -1,9 +1,1 @@
-*lib
-*.out
-*obj
-*.obj
-*Makefile
-*.qmake*
-*.pro.user*
-*.swp
-*.mtx
+build/*
