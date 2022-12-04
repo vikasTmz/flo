@@ -2,7 +2,6 @@
 #include <numeric>
 #include <sstream>
 
-#include <igl/write_triangle_mesh.h>
 #include <igl/read_triangle_mesh.h>
 #include <igl/per_vertex_normals.h>
 #include <igl/cotmatrix.h>
