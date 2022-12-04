@@ -23,6 +23,7 @@ int main(int argc, char *argv[])
   using namespace std;
 
   const std::string in_name = argv[1];
+  const int max_iter = std::stoi(argv[2]);
   const std::string out_name = argv[3];
 
   // Load a mesh in OFF format
@@ -48,7 +49,7 @@ int main(int argc, char *argv[])
 
   U = V;
 
-  for (int iterations = 0; iterations < std::stoi(argv[2]); ++iterations)
+  for (int iterations = 0; iterations < max_iter; ++iterations)
   {
     // Recompute just mass matrix on each step
     SparseMatrix<double> M;
@@ -73,11 +74,13 @@ int main(int argc, char *argv[])
     // Normalize to unit surface area (important for numerics)
     U.array() /= sqrt(area);
 
-    std::stringstream ss(std::to_string(iterations));
-    std::string newString = out_name + ss.str() + ".obj";
-    igl::writeOBJ(newString, U, F);
+    // std::stringstream ss(std::to_string(iterations));
+    // std::string newString = out_name + ss.str() + ".obj";
+    // igl::writeOBJ(newString, U, F);
   }
 
-  // igl::writeOBJ(argv[3],U,F);
+  std::stringstream ss(std::to_string(max_iter));
+  std::string newString = out_name + ss.str() + ".obj";
+  igl::writeOBJ(newString,U,F);
   return 1;
 }
