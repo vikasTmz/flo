@@ -138,7 +138,7 @@ to_real_quaternion_matrix(const SparseMatrix<double>& i_real_matrix)
 //           typename DerivedVVA,
 //           typename DerivedVVV,
 //           typename DerivedVVCV>
-void vertex_vertex_adjacency(const MatrixXi& F,
+void vertex_vertex_adjacency(const Matrix<int, Eigen::Dynamic, 3>& F,
                                      Matrix<int, Dynamic, 1> & VVAK,
                                      Matrix<int, Dynamic, 1> & VVA,
                                      Matrix<int, Dynamic, 1> & VVV,
@@ -178,8 +178,8 @@ void vertex_vertex_adjacency(const MatrixXi& F,
 //           typename DerivedVV,
 //           typename DerivedA,
 //           typename DerivedP>
-void intrinsic_dirac(const MatrixXd& V,
-                             const MatrixXi& F,
+void intrinsic_dirac(const Matrix<double, Eigen::Dynamic, 3>& V,
+                             const Matrix<int, Eigen::Dynamic, 3>& F,
                              const Matrix<int, Dynamic, 1>& VV,
                              const Matrix<double, Dynamic, 1>  & A,
                              const Matrix<double, Dynamic, 1>& P,
@@ -280,8 +280,8 @@ void similarity_xform(const SparseMatrix<double>& D,
   }
 }
 
-void divergent_edges(const MatrixXd& V,
-                             const MatrixXi& F,
+void divergent_edges(const Matrix<double, Eigen::Dynamic, 3>& V,
+                             const Matrix<int, Eigen::Dynamic, 3>& F,
                              const Matrix<double, Dynamic, 4> & X,
                              const SparseMatrix<double>& L,
                              Matrix<double, Dynamic, 4>& E)
@@ -368,8 +368,8 @@ void spin_positions(const SparseMatrix<double>& QL,
 
 
 // template <typename DerivedV, typename DerivedF, typename DerivedP>
-void spin_xform(MatrixXd& V,
-                        const MatrixXi& F,
+void spin_xform(Matrix<double, Eigen::Dynamic, 3>& V,
+                        const Matrix<int, Eigen::Dynamic, 3>& F,
                         const Matrix<double, Dynamic, 1>& P,
                         const SparseMatrix<double>& L)
 {
