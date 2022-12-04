@@ -16,7 +16,7 @@ include(libigl)
 #add_executable(${PROJECT_NAME} ${SRC_FILES})
 
 add_executable(conformalwillmoreflow tutorial/801_ConformalWillmoreFlow/main.cpp) # you can change the excutable name
-add_executable(laplacianflow tutorial/802_LaPlacian_Flow.cpp) # you can change the excutable name
+add_executable(laplacianflow tutorial/802_LaPlacian_Flow/main.cpp) # you can change the excutable name
 
 
 #target_link_libraries(conformalwillmoreflow PUBLIC igl::glfw)
