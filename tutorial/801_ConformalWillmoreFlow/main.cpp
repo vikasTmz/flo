@@ -10,18 +10,6 @@
 #include <igl/adjacency_matrix.h>
 #include <igl/writeOBJ.h>
 
-// #include "flo/host/flo_matrix_operation.hpp"
-// // #include "flo/host/willmore_flow.hpp"
-// #include "flo/host/surface.hpp"
-// #include "flo/host/flo_internal.hpp"
-// #include "flo/host/mean_curvature.hpp"
-// #include "flo/host/flo_matrix_operation.hpp"
-// // #include "flo/host/spin_xform.hpp"
-// #include "flo/host/vertex_mass.hpp"
-// #include "flo/host/orthonormalize.hpp"
-// #include "flo/host/project_basis.hpp"
-
-
 #include <Eigen/Sparse>
 #include <Eigen/Dense>
 #include <Eigen/SparseCholesky>
@@ -430,8 +418,8 @@ int main(int argc, char* argv[])
   // flo::host::Surface surf;
   // igl::read_triangle_mesh(in_name, surf.vertices, surf.faces);
 
-  MatrixXd V;
-  MatrixXi F;
+  Matrix<double, Eigen::Dynamic, 3> V;
+  Matrix<int, Eigen::Dynamic, 3> F;
   igl::read_triangle_mesh(in_name,V,F);
 
   ForwardEuler<double> integrator(tao);
