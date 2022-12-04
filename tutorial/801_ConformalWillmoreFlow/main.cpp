@@ -540,7 +540,7 @@ int main(int argc, char* argv[])
     // // spin transform using our change in mean curvature half-density
     spin_xform(V, F, H, L);
 
-    if (iter % 2 == 0)
+    if (iter % 3 == 0)
     {
       std::stringstream ss(std::to_string(iter));
       std::string newString = out_name + ss.str() + ".obj";
