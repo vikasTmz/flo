@@ -434,7 +434,8 @@ int main(int argc, char* argv[])
     std::cout << "Calculate smooth vertex normals" << std::endl;
 
     // Calculate smooth vertex normals
-    MatrixXd N;
+    // MatrixXd N;
+    Matrix<double, Eigen::Dynamic, 3> N;
     igl::per_vertex_normals(V, F, igl::PER_VERTEX_NORMALS_WEIGHTING_TYPE_ANGLE, N);
 
     std::cout << "Calculate the cotangent laplacian for our mesh" << std::endl;
