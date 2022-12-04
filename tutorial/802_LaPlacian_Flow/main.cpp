@@ -1,3 +1,4 @@
+#include <igl/read_triangle_mesh.h>
 #include <igl/barycenter.h>
 #include <igl/cotmatrix.h>
 #include <igl/doublearea.h>
@@ -21,8 +22,12 @@ int main(int argc, char *argv[])
   using namespace Eigen;
   using namespace std;
 
+  const std::string in_name = argv[1];
+  const std::string out_name = argv[3];
+
   // Load a mesh in OFF format
-  igl::readOFF(argv[1], V, F);
+  // igl::readOFF(argv[1], V, F);
+  igl::read_triangle_mesh(in_name,V,F);
 
   // Compute Laplace-Beltrami operator: #V by #V
   igl::cotmatrix(V,F,L);
@@ -67,17 +72,12 @@ int main(int argc, char *argv[])
     U.rowwise() -= centroid;
     // Normalize to unit surface area (important for numerics)
     U.array() /= sqrt(area);
+
+    std::stringstream ss(std::to_string(iterations));
+    std::string newString = out_name + ss.str() + ".obj";
+    igl::writeOBJ(newString, U, F);
   }
 
-
-  // // Use original normals as pseudo-colors
-  // MatrixXd N;
-  // igl::per_vertex_normals(V,F,N);
-  // MatrixXd C = N.rowwise().normalized().array()*0.5+0.5;
-
-  // // Initialize smoothing with base mesh
-  // U = V;
-
-  igl::writeOBJ(argv[3],U,F);
+  // igl::writeOBJ(argv[3],U,F);
   return 1;
 }
