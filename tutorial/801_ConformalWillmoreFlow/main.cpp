@@ -547,7 +547,7 @@ int main(int argc, char* argv[])
 
   std::stringstream ss(std::to_string(max_iter));
   std::string newString = out_name + ss.str() + ".obj";
-  igl::writeOBJ(newString,U,F);
+  igl::writeOBJ(newString,V,F);
 
   return 0;
 }
