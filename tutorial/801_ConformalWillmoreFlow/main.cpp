@@ -9,6 +9,7 @@
 #include <igl/doublearea.h>
 #include <igl/adjacency_matrix.h>
 #include <igl/writeOBJ.h>
+#include <igl/decimate.h>
 
 #include <Eigen/Sparse>
 #include <Eigen/Dense>
@@ -414,7 +415,9 @@ int main(int argc, char* argv[])
   const std::string out_name = argv[2];
   const int max_iter = std::stoi(argv[3]);
   const float tao = std::stof(argv[4]);
-
+  const std::string is_decimate_str = argv[5]
+  bool is_decimate;
+  istringstream(is_decimate_str) >> is_decimate;
   // flo::host::Surface surf;
   // igl::read_triangle_mesh(in_name, surf.vertices, surf.faces);
 
@@ -546,6 +549,13 @@ int main(int argc, char* argv[])
       std::string newString = out_name + ss.str() + ".obj";
       igl::writeOBJ(newString, V, F);
     }
+
+    if (is_decimate) 
+    {
+      const auto num_face = F.rows();
+      igl::decimate(V,F,num_face / 2,V,F);
+    }
+
   }
 
   // std::stringstream ss(std::to_string(max_iter));
