@@ -415,7 +415,7 @@ int main(int argc, char* argv[])
   const std::string out_name = argv[2];
   const int max_iter = std::stoi(argv[3]);
   const float tao = std::stof(argv[4]);
-  const std::string is_decimate_str = argv[5]
+  const std::string is_decimate_str = argv[5];
   bool is_decimate;
   istringstream(is_decimate_str) >> is_decimate;
   // flo::host::Surface surf;
