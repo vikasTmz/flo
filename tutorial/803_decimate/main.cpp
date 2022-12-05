@@ -25,6 +25,9 @@ int main(int argc, char * argv[])
   MatrixXi F,OF;
   read_triangle_mesh(in_name,OV,OF);
 
+  decimate(OV, OF, 100, V, F);
+  writeOBJ(out_name,V,F);
+
   // Prepare array-based edge data structures and priority queue
   VectorXi EMAP;
   MatrixXi E,EF,EI;
@@ -76,7 +79,7 @@ int main(int argc, char * argv[])
     num_collapsed++;
   }
 
-  writeOBJ(out_name,V,F);
+  // writeOBJ(out_name,V,F);
 
   return 0;
 }
