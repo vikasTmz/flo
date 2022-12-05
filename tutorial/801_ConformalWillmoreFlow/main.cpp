@@ -554,19 +554,19 @@ int main(int argc, char* argv[])
       igl::writeOBJ(newString, V, F);
     }
 
-    if (is_decimate) 
-    {
-      const auto num_face = F.rows();
+  //   if (is_decimate) 
+  //   {
+  //     const auto num_face = F.rows();
 
-  // Matrix<float, Eigen::Dynamic, 3> V;
-  // Matrix<int, Eigen::Dynamic, 3> F;
-      MatrixXd temp_V;
-      MatrixXi temp_F;
+  // // Matrix<float, Eigen::Dynamic, 3> V;
+  // // Matrix<int, Eigen::Dynamic, 3> F;
+  //     MatrixXd temp_V;
+  //     MatrixXi temp_F;
 
-      igl::decimate(temp_V, temp_F, 100, temp_V, temp_F);
-      V = temp_V;
-      F = temp_F;
-    }
+  //     igl::decimate(temp_V, temp_F, 100, temp_V, temp_F);
+  //     V = temp_V;
+  //     F = temp_F;
+  //   }
 
   }
 
