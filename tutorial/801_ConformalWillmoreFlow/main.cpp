@@ -417,7 +417,7 @@ int main(int argc, char* argv[])
   const float tao = std::stof(argv[4]);
   const std::string is_decimate_str = argv[5];
   bool is_decimate;
-  istringstream(is_decimate_str) >> is_decimate;
+  std::istringstream(is_decimate_str) >> is_decimate;
   // flo::host::Surface surf;
   // igl::read_triangle_mesh(in_name, surf.vertices, surf.faces);
 
