@@ -25,8 +25,8 @@ int main(int argc, char * argv[])
   MatrixXi F,OF;
   read_triangle_mesh(in_name,OV,OF);
 
-  decimate(OV, OF, 100, V, F);
-  writeOBJ(out_name,V,F);
+  // decimate(OV, OF, 100, V, F);
+  // writeOBJ(out_name,V,F);
 
   // Prepare array-based edge data structures and priority queue
   VectorXi EMAP;
@@ -69,6 +69,9 @@ int main(int argc, char * argv[])
   bool something_collapsed = false;
   // collapse edge
   const int max_iter = std::ceil(0.01*Q.size());
+  cout << "max_iter = " << max_iter << endl;
+  cout << "Before V rows, cols = " << V.rows() << ", " << V.cols() << endl;
+
   for(int j = 0;j<max_iter;j++)
   {
     if(!collapse_edge(shortest_edge_and_midpoint,V,F,E,EMAP,EF,EI,Q,EQ,C))
@@ -79,7 +82,10 @@ int main(int argc, char * argv[])
     num_collapsed++;
   }
 
-  // writeOBJ(out_name,V,F);
+  cout << "After V rows, cols = " << V.rows() << ", " << V.cols() << endl;
+
+
+  writeOBJ(out_name,V,F);
 
   return 0;
 }
