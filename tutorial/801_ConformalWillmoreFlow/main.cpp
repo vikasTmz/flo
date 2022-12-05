@@ -9,7 +9,11 @@
 #include <igl/doublearea.h>
 #include <igl/adjacency_matrix.h>
 #include <igl/writeOBJ.h>
+#include <igl/circulation.h>
+#include <igl/collapse_edge.h>
+#include <igl/edge_flaps.h>
 #include <igl/decimate.h>
+#include <igl/shortest_edge_and_midpoint.h>
 
 #include <Eigen/Sparse>
 #include <Eigen/Dense>
