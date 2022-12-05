@@ -559,7 +559,7 @@ int main(int argc, char* argv[])
       MatrixXd temp_V = V;
       MatrixXi temp_F = F;
 
-      igl::decimate(temp_V, temp_F,num_face / 2, temp_V, temp_F);
+      igl::decimate(temp_V, (int)temp_F,num_face / 2, temp_V, temp_F);
       V = temp_V;
       F = temp_F;
     }
