@@ -14,7 +14,9 @@ igl_include(glfw)
 
 add_executable(conformalwillmoreflow tutorial/801_ConformalWillmoreFlow/main.cpp) # you can change the excutable name
 add_executable(laplacianflow tutorial/802_LaPlacian_Flow/main.cpp) # you can change the excutable name
+add_executable(meshdecimate tutorial/803_decimate/main.cpp) # you can change the excutable name
 
 
 target_link_libraries(conformalwillmoreflow PUBLIC igl::glfw)
 target_link_libraries(laplacianflow PUBLIC igl::glfw)
+target_link_libraries(meshdecimate PUBLIC igl::glfw)
