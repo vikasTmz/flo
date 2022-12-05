@@ -419,11 +419,10 @@ int main(int argc, char* argv[])
   const std::string out_name = argv[2];
   const int max_iter = std::stoi(argv[3]);
   const float tao = std::stof(argv[4]);
-  const std::string is_decimate_str = argv[5];
-  bool is_decimate;
-  std::istringstream(is_decimate_str) >> is_decimate;
-  // flo::host::Surface surf;
-  // igl::read_triangle_mesh(in_name, surf.vertices, surf.faces);
+
+  // const std::string is_decimate_str = argv[5];
+  // bool is_decimate;
+  // std::istringstream(is_decimate_str) >> is_decimate;
 
   Matrix<float, Eigen::Dynamic, 3> V;
   Matrix<int, Eigen::Dynamic, 3> F;
