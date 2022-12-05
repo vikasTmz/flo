@@ -82,6 +82,8 @@ int main(int argc, char * argv[])
     num_collapsed++;
   }
 
+  cout << "num_collapsed = " << num_collapsed << endl;
+
   cout << "After V rows, cols = " << V.rows() << ", " << V.cols() << endl;
 
 
