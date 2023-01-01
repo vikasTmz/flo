@@ -526,7 +526,7 @@ int main(int argc, char* argv[]) {
     // take a time step
     integrator(H, HP);
 
-    // // spin transform using our change in mean curvature half-density
+    // spin transform using our change in mean curvature half-density
     spin_xform(V, F, H, L);
 
     // if (iter % 3 == 0) {
